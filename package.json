@@ -12,7 +12,7 @@
         "build": "tsup",
         "ci": "tsc && pnpm test && tsup",
         "test": "vitest run --config vitest.config.ts",
-        "prepare": "node .husky/install.mjs",
+        "prepare": "tsup && node .husky/install.mjs",
         "format": "prettier --cache --write .",
         "format:check": "prettier --cache --check ."
     },
