@@ -8,7 +8,7 @@ import { log } from "../config/logger.js";
 import { SRC_BASE_URL, USER_AGENT_HEADER } from "../utils/constants.js";
 import type { extractedSrc, unencryptedSrc } from "./megacloud.js";
 
-const embed_url = "https://megacloud.tv/embed-2/e-1/";
+const embed_url = "https://megacloud.blog/embed-2/v2/e-1/";
 const referrer = SRC_BASE_URL;
 const user_agent = USER_AGENT_HEADER;
 
@@ -50,7 +50,7 @@ interface fakeWindow {
 }
 
 const canvas = {
-    baseUrl: "https://megacloud.tv/embed-2/e-1/1hnXq7VzX0Ex?k=1",
+    baseUrl: "https://megacloud.blog/embed-2/v2/e-1/1hnXq7VzX0Ex?k=1",
     width: 0,
     height: 0,
     style: {
@@ -79,7 +79,7 @@ const fake_window: fakeWindow = {
 
     origin: "https://megacloud.tv",
     location: {
-        href: "https://megacloud.tv/embed-2/e-1/1hnXq7VzX0Ex?k=1",
+        href: "https://megacloud.blog/embed-2/v2/e-1/1hnXq7VzX0Ex?k=1",
         origin: "https://megacloud.tv",
     },
     performance: {
@@ -837,6 +837,12 @@ function z(a: any) {
     ];
 }
 
+async function getMegaCloudKey() {
+    const resp = await fetch('https://superbillgalaxy.github.io/megacloud-keys/api.json');
+    const data = await resp.json();
+    return data.megacloud;
+}
+
 export async function getSources(xrax: string) {
     await getMeta(embed_url + xrax + "?k=1");
     fake_window.xrax = xrax;
@@ -845,58 +851,60 @@ export async function getSources(xrax: string) {
     fake_window.location.href = embed_url + xrax + "?k=1";
 
     let browser_version = 1878522368;
+    
     let res = {} as extractedSrc;
 
     try {
         await V();
 
         let getSourcesUrl =
-            "https://megacloud.tv/embed-2/ajax/e-1/getSources?id=" +
-            fake_window.pid +
-            "&v=" +
-            fake_window.localStorage.kversion +
-            "&h=" +
-            fake_window.localStorage.kid +
-            "&b=" +
-            browser_version;
+            "https://megacloud.blog/embed-2/v2/e-1/getSources?id=" + xrax;
 
-        let resp_json = await (
-            await fetch(getSourcesUrl, {
-                headers: {
-                    "User-Agent": user_agent,
-                    //"Referrer": fake_window.origin + "/v2/embed-4/" + xrax + "?z=",
-                    Referer: embed_url + xrax + "?k=1",
-                    "X-Reuested-With": "XMLHttpRequest",
-                },
-                method: "GET",
-                mode: "cors",
-            })
-        ).json();
+        let resp = await fetch(getSourcesUrl, {
+            headers: {
+                "User-Agent": user_agent,
+                // "Referrer": fake_window.origin + "/v2/embed-4/" + xrax + "?z=",
+                Referer: embed_url + xrax + "?k=1",
+                "X-Requested-With": "XMLHttpRequest",
+            },
+            method: "GET",
+            mode: "cors",
+        });
 
-        //let encrypted = resp_json.sources;
+        let resp_json = await resp.json();
+
         let Q3 = fake_window.localStorage.kversion;
+
         let Q1 = z(Q3);
+
         let Q5 = fake_window.navigate();
         Q5 = new Uint8Array(Q5);
+
         let Q8: any;
+
         Q8 =
             resp_json.t != 0
                 ? (i(Q5, Q1), Q5)
                 : ((Q8 = resp_json.k), i(Q8, Q1), Q8);
 
         res = resp_json as extractedSrc;
+
         // @ts-ignore
         const str = btoa(String.fromCharCode.apply(null, new Uint8Array(Q8)));
+        
+        const megaCloudKey = await getMegaCloudKey();
+
+        const keyToUse = (!megaCloudKey || megaCloudKey.trim() === "") ? str : megaCloudKey;
 
         // decoding encrypted .m3u8 file url
-        res.sources = M(res.sources, str) as unencryptedSrc[];
+        res.sources = M(res.sources, keyToUse) as unencryptedSrc[];
 
         return res;
     } catch (err) {
-        log.error(err);
+        console.error('[getSources] ERROR:', err);
     }
 }
 
-// https://megacloud.tv/embed-2/e-1/1hnXq7VzX0Ex
-// https://megacloud.tv/embed-2/e-1/JSwUe6aP7TxJ
+// https://megacloud.blog/embed-2/v2/e-1/1hnXq7VzX0Ex
+// https://megacloud.blog/embed-2/v2/e-1/JSwUe6aP7TxJ
 // getSources("JSwUe6aP7TxJ");

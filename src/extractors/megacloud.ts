@@ -6,8 +6,8 @@ import { getSources } from "./megacloud.getsrcs.js";
 // https://megacloud.tv/embed-2/e-1/dBqCr5BcOhnD?k=1
 
 const megacloud = {
-    script: "https://megacloud.tv/js/player/a/prod/e1-player.min.js?v=",
-    sources: "https://megacloud.tv/embed-2/ajax/e-1/getSources?id=",
+    script: "https://megacloud.tv/js/player/a/v2/pro/embed-1.min.js",
+    sources: "https://megacloud.tv/embed-2/v2/e-1/getSources?id=",
 } as const;
 
 export type track = {
@@ -252,7 +252,10 @@ class MegaCloud {
             const xrax = embedIframeURL.pathname.split("/").pop() || "";
 
             const resp = await getSources(xrax);
-            if (!resp) return extractedData;
+
+            if (!resp) {
+                return extractedData;
+            }
 
             if (Array.isArray(resp.sources)) {
                 extractedData.sources = resp.sources.map((s) => ({
@@ -266,6 +269,7 @@ class MegaCloud {
 
             return extractedData;
         } catch (err) {
+            console.error('[extract2] CATCH ERROR:', err);
             throw err;
         }
     }
