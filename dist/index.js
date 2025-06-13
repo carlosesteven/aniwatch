@@ -14527,10 +14527,10 @@ var fake_window = {
   document: {
     cookie: ""
   },
-  origin: "https://megacloud.tv",
+  origin: "https://megacloud.blog",
   location: {
     href: "https://megacloud.blog/embed-2/v2/e-1/1hnXq7VzX0Ex?k=1",
-    origin: "https://megacloud.tv"
+    origin: "https://megacloud.blog"
   },
   performance: {
     timeOrigin: dateNow
@@ -14552,7 +14552,7 @@ var fake_window = {
 };
 var nodeList = {
   image: {
-    src: "https://megacloud.tv/images/image.png?v=0.1.0",
+    src: "https://megacloud.blog/images/image.png?v=0.1.0",
     height: 50,
     width: 65,
     complete: true
@@ -15085,7 +15085,7 @@ function r(z2) {
 var V = async () => {
   try {
     let Q0 = await wasmLoader(
-      "https://megacloud.tv/images/loading.png?v=0.0.9"
+      "https://megacloud.blog/images/loading.png?v=0.0.9"
     );
     fake_window.bytes = Q0;
     wasmLoader.groot();
@@ -15180,8 +15180,8 @@ async function getSources(xrax) {
 
 // src/extractors/megacloud.ts
 var megacloud = {
-  script: "https://megacloud.tv/js/player/a/v2/pro/embed-1.min.js",
-  sources: "https://megacloud.tv/embed-2/v2/e-1/getSources?id="
+  script: "https://megacloud.blog/js/player/a/v2/pro/embed-1.min.js?v=",
+  sources: "https://megacloud.blog/embed-2/v2/e-1/getSources?id="
 };
 var MegaCloud = class {
   // private serverName = "megacloud";

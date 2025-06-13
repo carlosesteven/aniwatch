@@ -77,10 +77,10 @@ const fake_window: fakeWindow = {
         cookie: "",
     },
 
-    origin: "https://megacloud.tv",
+    origin: "https://megacloud.blog",
     location: {
         href: "https://megacloud.blog/embed-2/v2/e-1/1hnXq7VzX0Ex?k=1",
-        origin: "https://megacloud.tv",
+        origin: "https://megacloud.blog",
     },
     performance: {
         timeOrigin: dateNow,
@@ -103,7 +103,7 @@ const fake_window: fakeWindow = {
 
 const nodeList = {
     image: {
-        src: "https://megacloud.tv/images/image.png?v=0.1.0",
+        src: "https://megacloud.blog/images/image.png?v=0.1.0",
         height: 50,
         width: 65,
         complete: true,
@@ -781,7 +781,7 @@ function r(z: number) {
 const V = async () => {
     try {
         let Q0 = await wasmLoader(
-            "https://megacloud.tv/images/loading.png?v=0.0.9"
+            "https://megacloud.blog/images/loading.png?v=0.0.9"
         );
 
         fake_window.bytes = Q0;

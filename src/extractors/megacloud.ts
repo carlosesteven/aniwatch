@@ -6,8 +6,8 @@ import { getSources } from "./megacloud.getsrcs.js";
 // https://megacloud.tv/embed-2/e-1/dBqCr5BcOhnD?k=1
 
 const megacloud = {
-    script: "https://megacloud.tv/js/player/a/v2/pro/embed-1.min.js",
-    sources: "https://megacloud.tv/embed-2/v2/e-1/getSources?id=",
+    script: "https://megacloud.blog/js/player/a/v2/pro/embed-1.min.js?v=",
+    sources: "https://megacloud.blog/embed-2/v2/e-1/getSources?id=",
 } as const;
 
 export type track = {
