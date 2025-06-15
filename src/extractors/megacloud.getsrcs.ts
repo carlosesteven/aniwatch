@@ -838,7 +838,10 @@ function z(a: any) {
 }
 
 async function getMegaCloudKey() {
-    const resp = await fetch('https://raw.githubusercontent.com/carlosesteven/e1-player-deobf/main/output/key.json');
+    const ts = Date.now(); 
+    const resp = await fetch(`https://raw.githubusercontent.com/carlosesteven/e1-player-deobf/main/output/key.json?v=${ts}`, {
+        cache: "no-store", 
+    });
     const data = await resp.json();
     return data.decryptKey; 
 }
