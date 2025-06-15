@@ -838,12 +838,13 @@ function z(a: any) {
 }
 
 async function getMegaCloudKey() {
-    const resp = await fetch('https://raw.githubusercontent.com/carlosesteven/e1-player-deobf/main/key.json');
+    const resp = await fetch('https://raw.githubusercontent.com/carlosesteven/e1-player-deobf/main/output/key.json');
     const data = await resp.json();
-    return data.megacloud;
+    return data.decryptKey;
 }
 
 export async function getSources(xrax: string) {
+    /*
     await getMeta(embed_url + xrax + "?k=1");
     fake_window.xrax = xrax;
     fake_window.G = xrax;
@@ -851,11 +852,11 @@ export async function getSources(xrax: string) {
     fake_window.location.href = embed_url + xrax + "?k=1";
 
     let browser_version = 1878522368;
-    
+    */
     let res = {} as extractedSrc;
 
     try {
-        await V();
+        //await V();
 
         let getSourcesUrl =
             "https://megacloud.blog/embed-2/v2/e-1/getSources?id=" + xrax;
@@ -873,11 +874,13 @@ export async function getSources(xrax: string) {
 
         let resp_json = await resp.json();
 
+        /*
         let Q3 = fake_window.localStorage.kversion;
 
         let Q1 = z(Q3);
 
         let Q5 = fake_window.navigate();
+
         Q5 = new Uint8Array(Q5);
 
         let Q8: any;
@@ -886,18 +889,19 @@ export async function getSources(xrax: string) {
             resp_json.t != 0
                 ? (i(Q5, Q1), Q5)
                 : ((Q8 = resp_json.k), i(Q8, Q1), Q8);
+                */
 
         res = resp_json as extractedSrc;
 
         // @ts-ignore
-        const str = btoa(String.fromCharCode.apply(null, new Uint8Array(Q8)));
+        //const str = btoa(String.fromCharCode.apply(null, new Uint8Array(Q8)));
         
         const megaCloudKey = await getMegaCloudKey();
 
-        const keyToUse = (!megaCloudKey || megaCloudKey.trim() === "") ? str : megaCloudKey;
+        //const keyToUse = (!megaCloudKey || megaCloudKey.trim() === "") ? str : megaCloudKey;
 
         // decoding encrypted .m3u8 file url
-        res.sources = M(res.sources, keyToUse) as unencryptedSrc[];
+        res.sources = M(res.sources, megaCloudKey ?? "") as unencryptedSrc[];
 
         return res;
     } catch (err) {
