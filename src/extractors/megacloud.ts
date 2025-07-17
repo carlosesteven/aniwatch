@@ -298,25 +298,49 @@ class MegaCloud {
 
             const match = /\/([^\/\?]+)\?/.exec(embedIframeURL.href);
 
-            const sourceId = match?.[1];
+            console.log("embedIframeURL.href: ", embedIframeURL.href);        
+
+            const sourceId = match?.[1];            
 
             if (!sourceId)
                 throw new Error("Unable to extract sourceId from embed URL");
 
-            const megacloudUrl = `https://megacloud.blog/embed-2/v2/e-1/getSources?id=${sourceId}`;
+            const resourceLinkMatch = embedIframeURL.href.match(/https:\/\/([^/]+)\/embed-2\/(v\d+)\/e-1\/([^?]+)/);
+    
+            if (!resourceLinkMatch) 
+            {
+                console.error('[!] Failed to extract domain and ID from link:', embedIframeURL.href);
+                process.exit(1);
+            }
+            
+            const domain = resourceLinkMatch[1];
+            
+            const version = resourceLinkMatch[2];
+
+            const megacloudUrl = `https://` + domain + `/embed-2/` + version + `/e-1/getSources?id=${sourceId}`;
+            
             const { data: rawSourceData } = await axios.get(megacloudUrl);
 
-            const encrypted = rawSourceData?.sources;
-            if (!encrypted)
-                throw new Error("Encrypted source missing in response");
-            const decrypted = CryptoJS.AES.decrypt(encrypted, key).toString(
-                CryptoJS.enc.Utf8
-            );
+            const encrypted = rawSourceData?.encrypted;
+
+            const sources = rawSourceData?.sources;
+
             let decryptedSources;
-            try {
-                decryptedSources = JSON.parse(decrypted);
-            } catch (e) {
-                throw new Error("Decrypted data is not valid JSON");
+
+            if (encrypted) {
+                const decrypted = CryptoJS.AES.decrypt(
+                    sources,
+                    key
+                ).toString(CryptoJS.enc.Utf8);
+                try {
+                    decryptedSources = JSON.parse(decrypted);
+                } catch (e) {
+                    throw new Error("Decrypted data is not valid JSON");
+                }
+            } else {
+                // En este caso, sources YA es el array de objetos listo para usar
+                decryptedSources = sources;
+                console.log("Encrypted source missing in response");
             }
 
             extractedData.intro = rawSourceData.intro
