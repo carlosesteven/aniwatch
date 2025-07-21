@@ -39,7 +39,7 @@ async function _getAnimeEpisodeSources(
                     // ...(await new MegaCloud().extract(serverUrl)),
                     // disabled again for the timebeing
                     // ...(await new MegaCloud().extract2(serverUrl)),
-                    ...(await new MegaCloud().extract3(serverUrl)),
+                    ...(await new MegaCloud().extractV3(serverUrl)),
                 };
             case Servers.StreamSB:
                 return {

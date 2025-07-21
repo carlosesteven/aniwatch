@@ -298,7 +298,7 @@ class MegaCloud {
 
             const match = /\/([^\/\?]+)\?/.exec(embedIframeURL.href);
 
-            console.log("embedIframeURL.href: ", embedIframeURL.href);        
+            console.log("\n\n- embedIframeURL.href: ", embedIframeURL.href);        
 
             const sourceId = match?.[1];            
 
@@ -318,8 +318,12 @@ class MegaCloud {
             const version = resourceLinkMatch[2];
 
             const megacloudUrl = `https://` + domain + `/embed-2/` + version + `/e-1/getSources?id=${sourceId}`;
+
+            console.log("\n\n- megacloudUrl: ", megacloudUrl);                          
             
             const { data: rawSourceData } = await axios.get(megacloudUrl);
+
+            console.log("\n\n- rawSourceData: ", rawSourceData);   
 
             const encrypted = rawSourceData?.encrypted;
 
@@ -327,10 +331,12 @@ class MegaCloud {
 
             let decryptedSources;
 
+            console.log("\n\n- key: ", key);        
+
             if (encrypted) {
                 const decrypted = CryptoJS.AES.decrypt(
                     sources,
-                    key
+                    "7ee35e76838c6712a38bfe07bf44033763f55d970f61ae78726578ae48a1f325"
                 ).toString(CryptoJS.enc.Utf8);
                 try {
                     decryptedSources = JSON.parse(decrypted);
@@ -338,7 +344,6 @@ class MegaCloud {
                     throw new Error("Decrypted data is not valid JSON");
                 }
             } else {
-                // En este caso, sources YA es el array de objetos listo para usar
                 decryptedSources = sources;
                 console.log("Encrypted source missing in response");
             }
@@ -367,6 +372,52 @@ class MegaCloud {
         } catch (err) {
             throw err;
         }
+    }
+
+    async extractV3(embed_url: URL): Promise<ExtractedData> {
+        const resourceLinkMatch = embed_url.href.match(/https:\/\/([^/]+)\/embed-2\/(v\d+)\/e-1\/([^?]+)/);
+
+        if (!resourceLinkMatch) {
+            throw new Error(`[!] Failed to extract domain and ID from link: ${embed_url}`);
+        }
+
+        const id = resourceLinkMatch[3];        
+
+        const version = resourceLinkMatch[2];        
+
+        const apiUrl = `http://127.0.0.1:8446/api?id=${id}&version=${version}`;
+
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+        }
+
+        const extractedData = await response.json();
+
+        const result: ExtractedData = {
+            intro: extractedData.intro
+                ? { start: extractedData.intro[0] ?? 0, end: extractedData.intro[1] ?? 0 }
+                : { start: 0, end: 0 },
+            outro: extractedData.outro
+                ? { start: extractedData.outro[0] ?? 0, end: extractedData.outro[1] ?? 0 }
+                : { start: 0, end: 0 },
+            sources: Array.isArray(extractedData.sources)
+                ? extractedData.sources.map((s: any) => ({
+                    url: s.file,
+                    isM3U8: s.type === 'hls',
+                    type: s.type,
+                }))
+                : [],
+            tracks: Array.isArray(extractedData.tracks)
+                ? extractedData.tracks.map((track: any) => ({
+                    url: track.file,
+                    lang: track.label ? track.label : track.kind,
+                }))
+                : [],
+        };
+
+        return result;
     }
 }
 
