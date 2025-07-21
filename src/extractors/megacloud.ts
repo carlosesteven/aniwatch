@@ -385,7 +385,7 @@ class MegaCloud {
 
         const version = resourceLinkMatch[2];        
 
-        const apiUrl = `http://127.0.0.1:8446/api?id=${id}&version=${version}`;
+        const apiUrl = `http://10.147.19.88:8446/api?id=${id}&version=${version}`;
 
         const response = await fetch(apiUrl);
 
