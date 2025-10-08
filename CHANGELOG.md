@@ -1,36 +1,38 @@
-## [2.23.3](https://github.com/ghoshRitesh12/aniwatch/compare/v2.23.2...v2.23.3) (2025-06-17)
+## [2.24.4](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.3...v2.24.4) (2025-10-06)
 
 
 ### Bug Fixes
 
-* megacloud sources ([e9ceb65](https://github.com/ghoshRitesh12/aniwatch/commit/e9ceb65a359ce272ae974c25e7071ffa2d25a0fe))
+* use the correct data structed ([3d5881d](https://github.com/ghoshRitesh12/aniwatch/commit/3d5881dc9547d821b9eff4048cd4c74b42386b56))
 
 
 
-## [2.23.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.23.1...v2.23.2) (2025-06-09)
-
-
-### Reverts
-
-* domain name to hianimez.to ([bfc402a](https://github.com/ghoshRitesh12/aniwatch/commit/bfc402a4ccfb19950e8c8cb06413c14b80c0504e))
+## [2.24.3](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.2...v2.24.3) (2025-08-26)
 
 
 
-## [2.23.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.23.0...v2.23.1) (2025-06-09)
+## [2.24.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.1...v2.24.2) (2025-08-26)
+
+
+### Bug Fixes
+
+* Megacloud V3 decryption ([ed1f920](https://github.com/ghoshRitesh12/aniwatch/commit/ed1f9206622bd041f1a36653afb538de89dd2da3))
 
 
 
-# [2.23.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.22.1...v2.23.0) (2025-05-11)
+## [2.24.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.0...v2.24.1) (2025-08-23)
 
 
-### Features
+### Bug Fixes
 
-* add pre-commit hook for package.json formatting in release workflow ([ab68040](https://github.com/ghoshRitesh12/aniwatch/commit/ab680405d767ad175ee5acbcf811cd42fa549920))
-* add preCommit function to format package.json ([20b9de5](https://github.com/ghoshRitesh12/aniwatch/commit/20b9de5bc29cd1f3c8a1d80078680e7ae12aeec7))
+* Delete dist directory ([2fd9897](https://github.com/ghoshRitesh12/aniwatch/commit/2fd98979c33f97fb97b1bb3fbe20df7470886fc8))
+* hehe ([5687791](https://github.com/ghoshRitesh12/aniwatch/commit/568779102c8ee429337a9870e8171db3bc0d4951))
+* missing category param in megacloud extractor ([ecc839a](https://github.com/ghoshRitesh12/aniwatch/commit/ecc839ae83a2c1c592df837b00f46ca1ca0dfabe))
+* remove episodeSources.test.ts ([c599543](https://github.com/ghoshRitesh12/aniwatch/commit/c5995436ec5bb34dcf9c02e092605a8b5836b422))
 
 
 
-## [2.22.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.22.0...v2.22.1) (2025-05-11)
+# [2.24.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.23.5...v2.24.0) (2025-07-27)
 
 
 

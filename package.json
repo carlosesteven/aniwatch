@@ -1,6 +1,6 @@
 {
     "name": "aniwatch",
-    "version": "2.23.3",
+    "version": "2.24.4",
     "description": "📦 A scraper package serving anime information from hianimez.to",
     "license": "MIT",
     "main": "dist/index.js",
@@ -10,7 +10,7 @@
     "scripts": {
         "lint": "tsc",
         "build": "tsup",
-        "ci": "tsc && pnpm test && tsup",
+        "ci": "tsc --noEmit && pnpm test && tsup",
         "test": "vitest run --config vitest.config.ts",
         "prepare": "tsup && node .husky/install.mjs",
         "format": "prettier --cache --write .",
@@ -42,13 +42,12 @@
         "cheerio": "1.0.0",
         "crypto-js": "^4.2.0",
         "pino": "^9.6.0",
-        "tsup": "^8.3.5"
+        "pino-pretty": "^13.0.0"
     },
     "devDependencies": {
         "@types/crypto-js": "^4.2.2",
         "@types/node": "^22.10.3",
         "husky": "^9.1.7",
-        "pino-pretty": "^13.0.0",
         "prettier": "^3.5.3",
         "tsup": "^8.3.5",
         "typescript": "^5.7.2",

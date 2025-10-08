@@ -88,15 +88,15 @@ async function _getAnimeEpisodeSources(
             log.info(`THE SERVER: ${JSON.stringify(server)}`);
 
             switch (server) {
-                case Servers.VidCloud: {
-                    serverId = retrieveServerId($, 1, category);
-                    if (!serverId) throw new Error("RapidCloud not found");
-                    break;
-                }
                 case Servers.VidStreaming: {
                     serverId = retrieveServerId($, 4, category);
                     log.info(`SERVER_ID: ${serverId}`);
                     if (!serverId) throw new Error("VidStreaming not found");
+                    break;
+                }
+                case Servers.VidCloud: {
+                    serverId = retrieveServerId($, 1, category);
+                    if (!serverId) throw new Error("RapidCloud not found");
                     break;
                 }
                 case Servers.StreamSB: {
