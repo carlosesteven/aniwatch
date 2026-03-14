@@ -10,4 +10,6 @@ test("returns episode source servers", async () => {
     expect(data.episodeNo).not.toEqual(0);
     expect(data.sub).not.toEqual([]);
     expect(data.dub).not.toEqual([]);
+
+    console.log(data);
 });

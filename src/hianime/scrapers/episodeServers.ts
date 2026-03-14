@@ -43,30 +43,30 @@ export async function getEpisodeServers(
 
         $(`.ps_-block.ps_-block-sub.servers-sub .ps__-list .server-item`).each(
             (_, el) => {
+                const serverId = Number($(el)?.attr("data-server-id")?.trim()) || null;
                 res.sub.push({
-                    serverName: $(el).find("a").text().toLowerCase().trim(),
-                    serverId:
-                        Number($(el)?.attr("data-server-id")?.trim()) || null,
+                    serverName: serverId !== null ? `hd-${serverId}` : "hd-1",
+                    serverId,
                 });
             }
         );
 
         $(`.ps_-block.ps_-block-sub.servers-dub .ps__-list .server-item`).each(
             (_, el) => {
+                const serverId = Number($(el)?.attr("data-server-id")?.trim()) || null;
                 res.dub.push({
-                    serverName: $(el).find("a").text().toLowerCase().trim(),
-                    serverId:
-                        Number($(el)?.attr("data-server-id")?.trim()) || null,
+                    serverName: serverId !== null ? `hd-${serverId}` : "hd-1",
+                    serverId,
                 });
             }
         );
 
         $(`.ps_-block.ps_-block-sub.servers-raw .ps__-list .server-item`).each(
             (_, el) => {
+                const serverId = Number($(el)?.attr("data-server-id")?.trim()) || null;
                 res.raw.push({
-                    serverName: $(el).find("a").text().toLowerCase().trim(),
-                    serverId:
-                        Number($(el)?.attr("data-server-id")?.trim()) || null,
+                    serverName: serverId !== null ? `hd-${serverId}` : "hd-1",
+                    serverId,
                 });
             }
         );
