@@ -8,7 +8,7 @@ import { log } from "../config/logger.js";
 import { SRC_BASE_URL, USER_AGENT_HEADER } from "../utils/constants.js";
 import type { extractedSrc, unencryptedSrc } from "./megacloud.js";
 
-const embed_url = "https://megacloud.blog/embed-2/v2/e-1/";
+const embed_url = "https://megacloud.tv/embed-2/e-1/";
 const referrer = SRC_BASE_URL;
 const user_agent = USER_AGENT_HEADER;
 
@@ -50,7 +50,7 @@ interface fakeWindow {
 }
 
 const canvas = {
-    baseUrl: "https://megacloud.blog/embed-2/v2/e-1/1hnXq7VzX0Ex?k=1",
+    baseUrl: "https://megacloud.tv/embed-2/e-1/1hnXq7VzX0Ex?k=1",
     width: 0,
     height: 0,
     style: {
@@ -77,10 +77,10 @@ const fake_window: fakeWindow = {
         cookie: "",
     },
 
-    origin: "https://megacloud.blog",
+    origin: "https://megacloud.tv",
     location: {
-        href: "https://megacloud.blog/embed-2/v2/e-1/1hnXq7VzX0Ex?k=1",
-        origin: "https://megacloud.blog",
+        href: "https://megacloud.tv/embed-2/e-1/1hnXq7VzX0Ex?k=1",
+        origin: "https://megacloud.tv",
     },
     performance: {
         timeOrigin: dateNow,
@@ -103,7 +103,7 @@ const fake_window: fakeWindow = {
 
 const nodeList = {
     image: {
-        src: "https://megacloud.blog/images/image.png?v=0.1.0",
+        src: "https://megacloud.tv/images/image.png?v=0.1.0",
         height: 50,
         width: 65,
         complete: true,
@@ -781,7 +781,7 @@ function r(z: number) {
 const V = async () => {
     try {
         let Q0 = await wasmLoader(
-            "https://megacloud.blog/images/loading.png?v=0.0.9"
+            "https://megacloud.tv/images/loading.png?v=0.0.9"
         );
 
         fake_window.bytes = Q0;
@@ -837,17 +837,7 @@ function z(a: any) {
     ];
 }
 
-async function getMegaCloudKey() {
-    const ts = Date.now(); 
-    const resp = await fetch(`https://raw.githubusercontent.com/carlosesteven/e1-player-deobf/main/output/key.json?v=${ts}`, {
-        cache: "no-store", 
-    });
-    const data = await resp.json();
-    return data.decryptKey; 
-}
-
 export async function getSources(xrax: string) {
-    /*
     await getMeta(embed_url + xrax + "?k=1");
     fake_window.xrax = xrax;
     fake_window.G = xrax;
@@ -855,63 +845,58 @@ export async function getSources(xrax: string) {
     fake_window.location.href = embed_url + xrax + "?k=1";
 
     let browser_version = 1878522368;
-    */
     let res = {} as extractedSrc;
 
     try {
-        //await V();
+        await V();
 
         let getSourcesUrl =
-            "https://megacloud.blog/embed-2/v2/e-1/getSources?id=" + xrax;
+            "https://megacloud.tv/embed-2/ajax/e-1/getSources?id=" +
+            fake_window.pid +
+            "&v=" +
+            fake_window.localStorage.kversion +
+            "&h=" +
+            fake_window.localStorage.kid +
+            "&b=" +
+            browser_version;
 
-        let resp = await fetch(getSourcesUrl, {
-            headers: {
-                "User-Agent": user_agent,
-                // "Referrer": fake_window.origin + "/v2/embed-4/" + xrax + "?z=",
-                Referer: embed_url + xrax + "?k=1",
-                "X-Requested-With": "XMLHttpRequest",
-            },
-            method: "GET",
-            mode: "cors",
-        });
+        let resp_json = await (
+            await fetch(getSourcesUrl, {
+                headers: {
+                    "User-Agent": user_agent,
+                    //"Referrer": fake_window.origin + "/v2/embed-4/" + xrax + "?z=",
+                    Referer: embed_url + xrax + "?k=1",
+                    "X-Reuested-With": "XMLHttpRequest",
+                },
+                method: "GET",
+                mode: "cors",
+            })
+        ).json();
 
-        let resp_json = await resp.json();
-
-        /*
+        //let encrypted = resp_json.sources;
         let Q3 = fake_window.localStorage.kversion;
-
         let Q1 = z(Q3);
-
         let Q5 = fake_window.navigate();
-
         Q5 = new Uint8Array(Q5);
-
         let Q8: any;
-
         Q8 =
             resp_json.t != 0
                 ? (i(Q5, Q1), Q5)
                 : ((Q8 = resp_json.k), i(Q8, Q1), Q8);
-                */
 
         res = resp_json as extractedSrc;
-
         // @ts-ignore
-        //const str = btoa(String.fromCharCode.apply(null, new Uint8Array(Q8)));
-        
-        const megaCloudKey = await getMegaCloudKey();
-
-        //const keyToUse = (!megaCloudKey || megaCloudKey.trim() === "") ? str : megaCloudKey;
+        const str = btoa(String.fromCharCode.apply(null, new Uint8Array(Q8)));
 
         // decoding encrypted .m3u8 file url
-        res.sources = M(res.sources, megaCloudKey ?? "") as unencryptedSrc[];
+        res.sources = M(res.sources, str) as unencryptedSrc[];
 
         return res;
     } catch (err) {
-        console.error('[getSources] ERROR:', err);
+        log.error(err);
     }
 }
 
-// https://megacloud.blog/embed-2/v2/e-1/1hnXq7VzX0Ex
-// https://megacloud.blog/embed-2/v2/e-1/JSwUe6aP7TxJ
+// https://megacloud.tv/embed-2/e-1/1hnXq7VzX0Ex
+// https://megacloud.tv/embed-2/e-1/JSwUe6aP7TxJ
 // getSources("JSwUe6aP7TxJ");
