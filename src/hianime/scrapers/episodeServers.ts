@@ -43,7 +43,8 @@ export async function getEpisodeServers(
 
         $(`.ps_-block.ps_-block-sub.servers-sub .ps__-list .server-item`).each(
             (_, el) => {
-                const serverId = Number($(el)?.attr("data-server-id")?.trim()) || null;
+                const serverIdRaw = Number($(el)?.attr("data-server-id")?.trim()) || null;
+                const serverId = serverIdRaw === 4 ? 2 : serverIdRaw;
                 res.sub.push({
                     serverName: serverId !== null ? `hd-${serverId}` : "hd-1",
                     serverId,
@@ -53,7 +54,8 @@ export async function getEpisodeServers(
 
         $(`.ps_-block.ps_-block-sub.servers-dub .ps__-list .server-item`).each(
             (_, el) => {
-                const serverId = Number($(el)?.attr("data-server-id")?.trim()) || null;
+                const serverIdRaw = Number($(el)?.attr("data-server-id")?.trim()) || null;
+                const serverId = serverIdRaw === 4 ? 2 : serverIdRaw;
                 res.dub.push({
                     serverName: serverId !== null ? `hd-${serverId}` : "hd-1",
                     serverId,
@@ -63,7 +65,8 @@ export async function getEpisodeServers(
 
         $(`.ps_-block.ps_-block-sub.servers-raw .ps__-list .server-item`).each(
             (_, el) => {
-                const serverId = Number($(el)?.attr("data-server-id")?.trim()) || null;
+                const serverIdRaw = Number($(el)?.attr("data-server-id")?.trim()) || null;
+                const serverId = serverIdRaw === 4 ? 2 : serverIdRaw;
                 res.raw.push({
                     serverName: serverId !== null ? `hd-${serverId}` : "hd-1",
                     serverId,
