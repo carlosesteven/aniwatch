@@ -528,6 +528,15 @@ class MegaCloud {
                 ? rawSourceData.outro
                 : extractedData.outro;
 
+            extractedData.tracks =
+                rawSourceData.tracks
+                    ?.filter((track: any) => track.kind === "captions")
+                    ?.map((track: any) => ({
+                        url: track.file,
+                        lang: track.label ? track.label : track.kind,
+                        default: track.default || false,
+                    })) || [];
+
             extractedData.subtitles =
                 rawSourceData.tracks
                     ?.filter((track: any) => track.kind === "captions")
@@ -541,6 +550,8 @@ class MegaCloud {
                 isM3U8: s.type === "hls",
                 type: s.type,
             }));
+
+            console.log("- EXTRACTED DATA", extractedData);
 
             return extractedData;
         } catch (err) {
