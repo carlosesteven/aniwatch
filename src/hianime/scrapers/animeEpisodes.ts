@@ -1,7 +1,7 @@
 import { load, type CheerioAPI } from "cheerio";
 import { client } from "../../config/client.js";
 import { HiAnimeError } from "../error.js";
-import { SRC_BASE_URL, SRC_AJAX_URL } from "../../utils/index.js";
+import { SRC_BASE_URL, SRC_AJAX_URL, SRC_AJAX_VERSION_PREFIX } from "../../utils/index.js";
 import type { ScrapedAnimeEpisodes } from "../types/scrapers/index.js";
 
 /**
@@ -32,7 +32,7 @@ export async function getAnimeEpisodes(
         }
 
         const episodesAjax = await client.get(
-            `${SRC_AJAX_URL}/v2/episode/list/${animeId.split("-").pop()}`,
+            `${SRC_AJAX_URL}${SRC_AJAX_VERSION_PREFIX}/episode/list/${animeId.split("-").pop()}`,
             {
                 headers: {
                     "X-Requested-With": "XMLHttpRequest",

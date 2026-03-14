@@ -29,13 +29,18 @@ class RapidCloud {
             const options = {
                 headers: {
                     "X-Requested-With": "XMLHttpRequest",
+                    "Referer": videoUrl.href,
                 },
             };
 
             let res = null;
 
+            // Use the same version path from the original URL
+            // e.g., /embed-2/v2/e-1/ -> /embed-2/v2/e-1/getSources
+            const pathMatch = videoUrl.pathname.match(/\/embed-2\/([^/]+\/)?e-1\//);
+            const versionPath = pathMatch ? pathMatch[0] : "/embed-2/ajax/e-1/";
             res = await axios.get(
-                `https://${videoUrl.hostname}/embed-2/ajax/e-1/getSources?id=${id}`,
+                `https://${videoUrl.hostname}${versionPath}getSources?id=${id}`,
                 options
             );
 
@@ -109,7 +114,9 @@ class RapidCloud {
                 this.sources = [];
 
                 for (const source of sources) {
-                    const { data } = await axios.get(source.file, options);
+                    const { data } = await axios.get(source.file, {
+                        headers: { Referer: `https://${videoUrl.hostname}/` },
+                    });
                     const m3u8data = data
                         .split("\n")
                         .filter(

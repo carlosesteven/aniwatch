@@ -1,43 +1,25 @@
-## [2.24.5](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.4...v2.24.5) (2026-01-22)
+## [2.27.9](https://github.com/ghoshRitesh12/aniwatch/compare/v2.27.8...v2.27.9) (2026-03-14)
+
+
+
+## [2.27.8](https://github.com/ghoshRitesh12/aniwatch/compare/v2.27.7...v2.27.8) (2026-03-14)
+
+
+
+## [2.27.7](https://github.com/ghoshRitesh12/aniwatch/compare/v2.27.6...v2.27.7) (2026-03-14)
 
 
 ### Bug Fixes
 
-* improve mostPopular animes extraction for various anime pages ([cf24d2a](https://github.com/ghoshRitesh12/aniwatch/commit/cf24d2a7d4e6cfcd6b9fd32d23292022a0784adb))
+* oopsie ([6644204](https://github.com/ghoshRitesh12/aniwatch/commit/664420449e848afdf5bb19c605bc227b03516d56))
 
 
 
-## [2.24.4](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.3...v2.24.4) (2025-10-06)
-
-
-### Bug Fixes
-
-* use the correct data structed ([3d5881d](https://github.com/ghoshRitesh12/aniwatch/commit/3d5881dc9547d821b9eff4048cd4c74b42386b56))
+## [2.27.6](https://github.com/ghoshRitesh12/aniwatch/compare/v2.27.5...v2.27.6) (2026-03-14)
 
 
 
-## [2.24.3](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.2...v2.24.3) (2025-08-26)
-
-
-
-## [2.24.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.1...v2.24.2) (2025-08-26)
-
-
-### Bug Fixes
-
-* Megacloud V3 decryption ([ed1f920](https://github.com/ghoshRitesh12/aniwatch/commit/ed1f9206622bd041f1a36653afb538de89dd2da3))
-
-
-
-## [2.24.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.0...v2.24.1) (2025-08-23)
-
-
-### Bug Fixes
-
-* Delete dist directory ([2fd9897](https://github.com/ghoshRitesh12/aniwatch/commit/2fd98979c33f97fb97b1bb3fbe20df7470886fc8))
-* hehe ([5687791](https://github.com/ghoshRitesh12/aniwatch/commit/568779102c8ee429337a9870e8171db3bc0d4951))
-* missing category param in megacloud extractor ([ecc839a](https://github.com/ghoshRitesh12/aniwatch/commit/ecc839ae83a2c1c592df837b00f46ca1ca0dfabe))
-* remove episodeSources.test.ts ([c599543](https://github.com/ghoshRitesh12/aniwatch/commit/c5995436ec5bb34dcf9c02e092605a8b5836b422))
+## [2.27.5](https://github.com/ghoshRitesh12/aniwatch/compare/v2.27.4...v2.27.5) (2026-03-14)
 
 
 
