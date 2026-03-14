@@ -491,7 +491,13 @@ class MegaCloud {
 
             // endpoint changed
             const megacloudUrl = `https://megacloud.blog/embed-2/v3/e-1/getSources?id=${sourceId}&_k=${clientKey}`;
+
+            console.log("- megacloudUrl", megacloudUrl);
+            
             const { data: rawSourceData } = await axios.get(megacloudUrl);
+
+            console.log("- RAW SOURCE DATA", rawSourceData);
+
             let decryptedSources;
             if (!rawSourceData?.encrypted) {
                 decryptedSources = rawSourceData?.sources;
