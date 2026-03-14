@@ -44,9 +44,10 @@ export async function getEpisodeServers(
         $(`.ps_-block.ps_-block-sub.servers-sub .ps__-list .server-item`).each(
             (_, el) => {
                 const serverIdRaw = Number($(el)?.attr("data-server-id")?.trim()) || null;
-                const serverId = serverIdRaw === 4 ? 2 : serverIdRaw;
+                const serverId =
+                serverIdRaw !== null && serverIdRaw % 2 === 0 ? serverIdRaw / 2 : serverIdRaw;
                 res.sub.push({
-                    serverName: serverId !== null ? `hd-${serverId}` : "hd-1",
+                    serverName: serverId !== null ? `hd-${serverId}` : "hd--1",
                     serverId,
                 });
             }
@@ -55,9 +56,10 @@ export async function getEpisodeServers(
         $(`.ps_-block.ps_-block-sub.servers-dub .ps__-list .server-item`).each(
             (_, el) => {
                 const serverIdRaw = Number($(el)?.attr("data-server-id")?.trim()) || null;
-                const serverId = serverIdRaw === 4 ? 2 : serverIdRaw;
+                const serverId =
+                serverIdRaw !== null && serverIdRaw % 2 === 0 ? serverIdRaw / 2 : serverIdRaw;
                 res.dub.push({
-                    serverName: serverId !== null ? `hd-${serverId}` : "hd-1",
+                    serverName: serverId !== null ? `hd-${serverId}` : "hd--1",
                     serverId,
                 });
             }
@@ -66,9 +68,10 @@ export async function getEpisodeServers(
         $(`.ps_-block.ps_-block-sub.servers-raw .ps__-list .server-item`).each(
             (_, el) => {
                 const serverIdRaw = Number($(el)?.attr("data-server-id")?.trim()) || null;
-                const serverId = serverIdRaw === 4 ? 2 : serverIdRaw;
+                const serverId =
+                serverIdRaw !== null && serverIdRaw % 2 === 0 ? serverIdRaw / 2 : serverIdRaw;
                 res.raw.push({
-                    serverName: serverId !== null ? `hd-${serverId}` : "hd-1",
+                    serverName: serverId !== null ? `hd-${serverId}` : "hd--1",
                     serverId,
                 });
             }
