@@ -558,6 +558,58 @@ class MegaCloud {
             throw err;
         }
     }
+    
+    async extractCSCLAB(embed_url: URL): Promise<ExtractedData> {
+        const resourceLinkMatch = embed_url.href.match(/https:\/\/([^/]+)\/embed-2\/(v\d+)\/e-1\/([^?]+)/);
+
+        if (!resourceLinkMatch) {
+            throw new Error(`[!] Failed to extract domain and ID from link: ${embed_url}`);
+        }
+
+        const id = resourceLinkMatch[3];        
+
+        const version = resourceLinkMatch[2];        
+
+        const apiUrl = `http://127.0.0.1:8446/distribute?id=${id}&version=${version}`;
+
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+        }
+
+        const extractedData = await response.json();
+
+        const result: ExtractedData = {
+            intro: extractedData.intro
+                ? { start: extractedData.intro[0] ?? 0, end: extractedData.intro[1] ?? 0 }
+                : { start: 0, end: 0 },
+            outro: extractedData.outro
+                ? { start: extractedData.outro[0] ?? 0, end: extractedData.outro[1] ?? 0 }
+                : { start: 0, end: 0 },
+            sources: Array.isArray(extractedData.sources)
+                ? extractedData.sources.map((s: any) => ({
+                    url: s.file,
+                    isM3U8: s.type === 'hls',
+                    type: s.type,
+                }))
+                : [],
+            tracks: Array.isArray(extractedData.tracks)
+                ? extractedData.tracks.map((track: any) => ({
+                    url: track.file,
+                    lang: track.label ? track.label : track.kind,
+                }))
+                : [],
+            subtitles: Array.isArray(extractedData.tracks)
+                ? extractedData.tracks.map((track: any) => ({
+                    url: track.file,
+                    lang: track.label ? track.label : track.kind,
+                }))
+                : [],
+        };
+
+        return result;
+    }
 }
 
 export default MegaCloud;

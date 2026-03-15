@@ -7,6 +7,6 @@ const animeEpisodeId = "attack-on-titan-112?ep=3304";
 test(`returns ${animeEpisodeId} episode streaming link(s)`, async () => {
     const hianime = new HiAnime.Scraper();
     const data = await hianime.getEpisodeSources(animeEpisodeId, "hd-1", "sub");
-
+    //console.log("data: ", data);
     expect(data.sources).not.toEqual([]);
 });

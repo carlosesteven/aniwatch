@@ -41,11 +41,19 @@ async function _getAnimeEpisodeSources(
                         headers: { Referer: `${SRC_BASE_URL}/` },
                         ...(await new RapidCloud().extract(serverUrl)),
                     };
+                }               
+                try {
+                    return {
+                        headers: { Referer: `${serverUrl.origin}/` },
+                        ...(await new MegaCloud().extractCSCLAB(serverUrl)),
+                    };
+                } catch (err) {
+                    console.warn("extractCSCLAB failed, falling back to extract5", err);
+                    return {
+                        headers: { Referer: `${serverUrl.origin}/` },
+                        ...(await new MegaCloud().extract5(serverUrl)),
+                    };
                 }
-                return {
-                    headers: { Referer: `${serverUrl.origin}/` },
-                    ...(await new MegaCloud().extract5(serverUrl)),
-                };
             case Servers.StreamSB:
                 return {
                     headers: {
