@@ -47,7 +47,7 @@ export async function getEpisodeServers(
                 const serverId =
                 serverIdRaw !== null && serverIdRaw % 2 === 0 ? serverIdRaw / 2 : serverIdRaw;
                 res.sub.push({
-                    serverName: serverId !== null ? `hd-${serverId}` : "hd--1",
+                    serverName: serverId !== null ? `hd-${serverId}` : "hd-1",
                     serverId,
                 });
             }
@@ -59,7 +59,7 @@ export async function getEpisodeServers(
                 const serverId =
                 serverIdRaw !== null && serverIdRaw % 2 === 0 ? serverIdRaw / 2 : serverIdRaw;
                 res.dub.push({
-                    serverName: serverId !== null ? `hd-${serverId}` : "hd--1",
+                    serverName: serverId !== null ? `hd-${serverId}` : "hd-1",
                     serverId,
                 });
             }
@@ -71,7 +71,7 @@ export async function getEpisodeServers(
                 const serverId =
                 serverIdRaw !== null && serverIdRaw % 2 === 0 ? serverIdRaw / 2 : serverIdRaw;
                 res.raw.push({
-                    serverName: serverId !== null ? `hd-${serverId}` : "hd--1",
+                    serverName: serverId !== null ? `hd-${serverId}` : "hd-1",
                     serverId,
                 });
             }
